@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>回到顶部</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				height: 2000px;
+				/*position: relative;*/
+			}
+			#box {
+				position: fixed;
+				right: 0px;
+				bottom: 20px;
+				width: 50px;
+				height: 50px;
+				background: red;
+				font-size: 12px;
+				line-height: 50px;
+				cursor: pointer;
+				animation: 30s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			回到顶部
+		</div>
+		
+		<script>
+			window.onload = function () {
+				var oBox = document.getElementById("box");
+				var clientHeight = document.documentElement.clientHeight;
+				var timer = null;
+				var isTop = true;
+				
+			window.onscroll = function () {
+				var osTop = document.documentElement.scrollTop || document.body.scrollTop; 
+//				console.log(osTop);
+                
+                if(osTop >= clientHeight){
+                	oBox.style.display = 'block';
+                }else {
+                	oBox.style.display = 'none';
+                }
+                
+                if(!isTop){
+                	clearInterval(timer);
+                }
+                
+                isTop = false;
+			}
+			
+			
+			oBox.onclick = function () {
+				timer = setInterval(function(){
+			            //获取滚动条的滚动高度
+			            var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+			            //用于设置速度差，产生缓动的效
+			            var speed = Math.floor(-osTop / 6);
+			            document.documentElement.scrollTop = document.body.scrollTop = osTop + speed;
+			            isTop = true;
+			             if(osTop == 0) {
+			               clearInterval(timer);	
+			             }
+			        },30);
+			}
+			
+			
+			
+		
+			
+			
+			}
+		</script>
+	</body>
+</html>
